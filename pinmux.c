@@ -85,8 +85,6 @@ PinMuxConfig(void)
     //
     // Set unused pins to PIN_MODE_0 with the exception of JTAG pins 16,17,19,20
     //
-    PinModeSet(PIN_01, PIN_MODE_0);
-    PinModeSet(PIN_02, PIN_MODE_0);
     PinModeSet(PIN_04, PIN_MODE_0);
     PinModeSet(PIN_08, PIN_MODE_0);
     PinModeSet(PIN_15, PIN_MODE_0);
