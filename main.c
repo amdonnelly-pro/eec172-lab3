@@ -89,14 +89,33 @@ void main()
     MAP_SPIEnable(GSPI_BASE);
 
     Adafruit_Init();
-
+    drawCircle(50, 50, 10, RED);
 
     int xLocation;
     int yLocation;
     xLocation = 10;
     yLocation = 10;
+    fillScreen(BLACK);
     while(FOREVER)
     {
-      drawCircle(xLocation, yLocation, 2, BLUE);
+        unsigned char ucDevAddr, ucRegOffset, ucRdLen;
+        unsigned char aucRdDataBuf[256];
+        int xAccel, yAccel;
+
+        ucDevAddr = 0x18;
+        ucRegOffset = 0x03;
+        ucRdLen = 1;
+
+
+        I2C_IF_Write(ucDevAddr,&ucRegOffset,1,0);
+        I2C_IF_Read(ucDevAddr, &aucRdDataBuf[0], ucRdLen);
+
+        ucRegOffset = 0x05;
+        I2C_IF_Write(ucDevAddr,&ucRegOffset,1,0);
+        I2C_IF_Read(ucDevAddr, &aucRdDataBuf[1], ucRdLen);
+
+        xAccel = aucRdDataBuf[0];
+        yAccel = aucRdDataBuf[1];
+        drawCircle(100, 100, 10, BLUE);
     }
 }
